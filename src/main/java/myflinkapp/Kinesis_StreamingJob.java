@@ -18,8 +18,6 @@
 
 package myflinkapp;
 
-import myflinkapp.pojo.WorkProfile;
-import myflinkapp.pojo.WorkProfileDeserialization;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.configuration.Configuration;

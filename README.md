@@ -22,6 +22,10 @@ Docker will allow you to run a Kinesalite image locally on your machine!
  
 [Install Docker](https://docs.docker.com/engine/install/)
 
+
+You also need to [install Docker Compose](https://docs.docker.com/compose/install/) to run the provided docker-compose template.
+
+
 # Run the docker image
 Once you've installed docker, either from your IntelliJ Terminal or your local machine's terminal, navigate to the git project's root and type the following:
 
