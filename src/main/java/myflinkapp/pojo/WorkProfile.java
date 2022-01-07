@@ -1,4 +1,4 @@
-package myflinkapp;
+package myflinkapp.pojo;
 
 public class WorkProfile {
     //color, animal, job position, years worked

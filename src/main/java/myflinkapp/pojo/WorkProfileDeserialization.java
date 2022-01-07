@@ -17,7 +17,7 @@
  */
 
 
-package myflinkapp;
+package myflinkapp.pojo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;;
 import org.apache.flink.api.common.serialization.DeserializationSchema;

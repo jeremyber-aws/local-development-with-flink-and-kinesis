@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package myflinkapp;
+package myflinkapp.pojo;
 
 import myflinkapp.pojo.WorkProfile;
 import myflinkapp.pojo.WorkProfileDeserialization;
