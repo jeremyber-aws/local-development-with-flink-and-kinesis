@@ -104,3 +104,5 @@ modules.xml
 
 target/
 .idea/
+
+src/main/java/myflinkapp/pojo
