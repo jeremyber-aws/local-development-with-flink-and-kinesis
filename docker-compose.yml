@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  kinesis:
+    volumes:
+      - ./ssl:/usr/src/app/node_modules/kinesalite/ssl
+    image: instructure/kinesalite
+    ports:
+      - 4567:4567
+      - 80:80
+      - 443:443
+    command: --ssl
