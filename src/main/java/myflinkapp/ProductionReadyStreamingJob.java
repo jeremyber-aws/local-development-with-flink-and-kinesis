@@ -19,43 +19,24 @@
 package myflinkapp;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.flink.api.java.io.TextInputFormat;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.CheckpointingMode;
-import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
+import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
-import java.util.Arrays;
-import java.util.Dictionary;
 import java.util.Random;
 
-/**
- * Skeleton for a Flink Streaming Job.
- *
- * <p>For a tutorial how to write a Flink streaming application, check the
- * tutorials and examples on the <a href="https://flink.apache.org/docs/stable/">Flink Website</a>.
- *
- * <p>To package your application into a JAR file for execution, run
- * 'mvn clean package' on the command line.
- *
- * <p>If you change the name of the main class (with the public static void main(String[] args))
- * method, change the respective entry in the POM.xml file (simply search for 'mainClass').
- */
-public class StreamingJob {
+public class ProductionReadyStreamingJob {
 
 	public static void main(String[] args) throws Exception {
-		// set up the streaming execution environment
-		Configuration flinkConfig = new Configuration();
-		StreamExecutionEnvironment env = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(flinkConfig);
-		env.enableCheckpointing(60000, CheckpointingMode.EXACTLY_ONCE );
-		env.setParallelism(6);
+
+		StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+		int MAX_PARALLELISM = env.getParallelism();
 
 
-
-
-		DataStreamSource<String> stringSource = env.addSource(new SourceFunction<String>() {
+		SingleOutputStreamOperator<String> stringSource = env.addSource(new SourceFunction<String>() {
 														 @Override
 														 public void run(SourceContext<String> sourceContext) throws Exception {
 															 while (true) {
@@ -69,10 +50,16 @@ public class StreamingJob {
 														public void cancel() {
 
 														}
-		});
+		}).uid("my-custom-source").setParallelism(1);
+
+
 		stringSource
 				.map(x -> x.length())
-				.print();
+					.uid("my-map-operator")
+					.setParallelism(Math.round(MAX_PARALLELISM/2))
+				.print()
+					.uid("my-print-statement")
+					.setParallelism(Math.round(MAX_PARALLELISM));
 
 		// execute program
 		env.execute("My Flink Application");
