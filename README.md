@@ -54,6 +54,9 @@ aws kinesis put-record --endpoint-url https://localhost:4567 --stream-name my-lo
 In `/src/main/java/Kinesis_StreamingJob.java` you can modify the code to point to the specific data stream you have created in the previous step.
 
 # Run code samples
+
+### Note: Ensure you are using Jave 8 or higher, and on your run configuration, include provided sources.
+
 ![Hit on Run](img/hit-on-run.png)
 
 In Intellij, Hit run, and you can continue publishing messages to see the Flink app print out the length of a string passed.
